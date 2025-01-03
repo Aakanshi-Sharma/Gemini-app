@@ -9,7 +9,7 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-model = genai.GenerativeModel("gemini-pro-vision")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 def get_response_api(query, image):
@@ -30,8 +30,8 @@ submit_button = st.button("Submit")
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded image", use_column_width=True)
 
 if submit_button:
-    response_text = get_response_api(input_text, image)
-    st.write(response_text)
+    with st.spinner('Wait for it...'):
+        response_text = get_response_api(input_text, image)
+        st.write(response_text)
